@@ -1,23 +1,16 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
-
-import streamlit as st
 import streamlit_authenticator as stauth
 
-# Page config
 st.set_page_config(layout="wide")
 
-# ✅ Add login here
-names = ['Admin', 'Teacher','Principal']
-usernames = ['admin', 'teacher','principal']
-passwords = ['password123', 'teacher123','principal123']
+names = ['Admin', 'Teacher', 'Principal']
+usernames = ['admin', 'teacher', 'principal']
+passwords = ['password123', 'teacher123', 'principal123']
 
 hashed_passwords = stauth.Hasher(passwords).generate()
-
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords, 'dashboard_cookie', 'random_key', cookie_expiry_days=30)
-
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
