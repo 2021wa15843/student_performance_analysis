@@ -51,7 +51,8 @@ if chart_type == "Performance Label Distribution":
     st.subheader("Click on a label to filter student records")
     selected_points = plotly_events(fig, click_event=True, select_event=False)
     if selected_points:
-        selected_label = selected_points[0]['label']
+        # selected_label = selected_points[0]['label']
+        selected_label = selected_points[0].get('x') or selected_points[0].get('customdata')
 elif chart_type == "Score Trend by Student":
     fig = px.line(filtered_df, x='Student_Unique_ID', y=['Previous_Score', 'Exam_Score'])
 elif chart_type == "Average Score by Class":
