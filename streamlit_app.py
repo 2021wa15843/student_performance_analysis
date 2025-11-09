@@ -13,6 +13,9 @@ import yaml
 # name, authentication_status, username = authenticator.login('Login', 'main')
 
 
+
+st.set_page_config(layout="wide")
+
 # Load config
 with open('config.yaml') as file:
     config = yaml.safe_load(file)
@@ -24,15 +27,16 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days']
 )
 
+# Correct location argument
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
     st.success(f"Welcome {name}")
+    
     st.set_page_config(layout="wide")
     
     # Load local CSV file
     df = pd.read_csv("Student_Performance_Standard6to12_Final.csv")
-    
     st.title("📊 Student Performance Dashboard (Demo)")
     
     # Sidebar filters
