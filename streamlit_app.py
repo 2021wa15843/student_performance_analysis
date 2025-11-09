@@ -39,8 +39,8 @@ if selected_region != 'All':
     filtered_df = filtered_df[filtered_df['Region'] == selected_region]
 if selected_section != 'All':
     filtered_df = filtered_df[filtered_df['Section'] == selected_section]
-if selected_school != 'All':
-    filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
+# if selected_school != 'All':
+    # filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
 
 # KPIs
 st.subheader("Key Performance Indicators")
