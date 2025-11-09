@@ -1,9 +1,8 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+import smtplib
+from email.mime.text import MIMEText
 
 st.set_page_config(layout="wide")
 
@@ -81,13 +80,35 @@ st.download_button(
     mime="text/csv"
 )
 
-# Notify staff via Google Sheets + Email Display
-st.subheader("Notify Staff")
+# Notify Staff via Gmail SMTP
+st.subheader("Notify Staff via Email")
 staff_email = "lavanya.ramamoorthy30@gamil.com"
 st.info(f"Notification will be sent to: {staff_email}")
 
 if st.button("Notify Staff"):
-    st.success(f"Notification logged for {staff_email}")
+    try:
+        sender_email = "lavanya.ramamoorthy30@gamil.com""
+        sender_password = "whqs vakk tgei mczr"
+
+        subject = "Student Performance Alert"
+        body = f"Total Students: {len(filtered_df)}
+Avg Exam Score: {round(filtered_df['Exam_Score'].mean(), 2)}
+Avg Attendance: {round(filtered_df['Attendance_Rate'].mean(), 2)}"
+
+        msg = MIMEText(body)
+        msg['Subject'] = subject
+        msg['From'] = sender_email
+        msg['To'] = staff_email
+
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, staff_email, msg.as_string())
+
+        st.success("Email notification sent successfully.")
+    except Exception as e:
+        st.error(f"Failed to send email: {e}")
+# if google sheets used in future
     # try:
     #     # Google Sheets logic (optional)
     #     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
