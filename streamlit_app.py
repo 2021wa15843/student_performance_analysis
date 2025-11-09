@@ -41,12 +41,19 @@ if selected_section != 'All':
 # if selected_school != 'All':
     # filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
 
-# KPIs
+# # KPIs
+# st.subheader("Key Performance Indicators")
+# col1, col2, col3 = st.columns(3)
+# col1.metric("Avg Previous Score", round(filtered_df['Previous_Score'].mean(), 2))
+# col2.metric("Avg Exam Score", round(filtered_df['Exam_Score'].mean(), 2))
+# col3.metric("Avg Attendance Rate", round(filtered_df['Attendance_Rate'].mean(), 2))
+
 st.subheader("Key Performance Indicators")
+total_students = len(filtered_df)
 col1, col2, col3 = st.columns(3)
-col1.metric("Avg Previous Score", round(filtered_df['Previous_Score'].mean(), 2))
-col2.metric("Avg Exam Score", round(filtered_df['Exam_Score'].mean(), 2))
-col3.metric("Avg Attendance Rate", round(filtered_df['Attendance_Rate'].mean(), 2))
+col1.metric(f"Avg Previous Score (Students: {total_students})",round(filtered_df['Previous_Score'].mean(), 2))
+col2.metric(f"Avg Exam Score (Students: {total_students})",round(filtered_df['Exam_Score'].mean(), 2))
+col3.metric(f"Avg Attendance Rate (Students: {total_students})",round(filtered_df['Attendance_Rate'].mean(), 2))
 
 # Chart
 if chart_type == "Performance Label Distribution":
