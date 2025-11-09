@@ -1,24 +1,13 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import datetime
 
 st.set_page_config(layout="wide")
 
-# Google Sheets setup
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-client = gspread.authorize(creds)
+# Load local CSV file
+df = pd.read_csv("Student_Performance_Standard6to12_Final.csv")
 
-# Read student data from Google Sheet
-sheet = client.open("Student Performance Data").worksheet("Data")
-data = sheet.get_all_records()
-df = pd.DataFrame(data)
-
-st.title("📊 Student Performance Dashboard")
+st.title("📊 Student Performance Dashboard (Demo)")
 
 # Sidebar filters
 with st.sidebar:
@@ -26,12 +15,12 @@ with st.sidebar:
     classes = ['All'] + sorted(df['Class'].unique())
     regions = ['All'] + sorted(df['Region'].unique())
     sections = ['All'] + sorted(df['Section'].unique())
-    # schools = ['All'] + sorted(df['School_Name'].unique())
+    schools = ['All'] + sorted(df['School_Name'].unique())
 
     selected_class = st.selectbox("Select Class", classes)
     selected_region = st.selectbox("Select Region", regions)
     selected_section = st.selectbox("Select Section", sections)
-    # selected_school = st.selectbox("Select School", schools)
+    selected_school = st.selectbox("Select School", schools)
 
     chart_type = st.selectbox("Select Chart Type", [
         "Performance Label Distribution",
@@ -49,8 +38,8 @@ if selected_region != 'All':
     filtered_df = filtered_df[filtered_df['Region'] == selected_region]
 if selected_section != 'All':
     filtered_df = filtered_df[filtered_df['Section'] == selected_section]
-# if selected_school != 'All':
-    # filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
+if selected_school != 'All':
+    filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
 
 # KPIs
 st.subheader("Key Performance Indicators")
@@ -82,7 +71,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader("Top 10 Students by Score Improvement")
 filtered_df['Score_Change'] = filtered_df['Exam_Score'] - filtered_df['Previous_Score']
 top_improved = filtered_df.sort_values('Score_Change', ascending=False).head(10)
-st.dataframe(top_improved[['Student_Unique_ID','Previous_Score','Exam_Score','Score_Change']])
+st.dataframe(top_improved[['Student_Unique_ID','School_Name','Previous_Score','Exam_Score','Score_Change']])
 
 # Full filtered student records
 st.subheader("Filtered Student Records")
@@ -97,25 +86,10 @@ st.download_button(
     mime="text/csv"
 )
 
-# Weekly summary logging
-st.subheader("Notify Staff (Log Weekly Summary)")
-staff_email = "lavanya.ramamoorthy@gamil.com"
-st.info(f"Notification will be logged for: {staff_email}")
+# # Notify Staff (Display Email)
+# st.subheader("Notify Staff")
+# staff_email = "lavanya.ramamoorthy@gamil.com"
+# st.info(f"Notification will be sent to: {staff_email}")
 
-if st.button("Log Weekly Summary"):
-    try:
-        summary_sheet = client.open("Student Performance Data").worksheet("Weekly Summary")
-        today = datetime.date.today().strftime("%Y-%m-%d")
-        summary_sheet.append_row([
-            today,
-            selected_class,
-            selected_section,
-            selected_school,
-            len(filtered_df),
-            round(filtered_df['Exam_Score'].mean(), 2),
-            round(filtered_df['Attendance_Rate'].mean(), 2),
-            staff_email
-        ])
-        st.success("Weekly summary logged successfully.")
-    except Exception as e:
-        st.error(f"Failed to log summary: {e}")
+# if st.button("Notify Staff"):
+#     st.success(f"Notification logged for {staff_email}")
