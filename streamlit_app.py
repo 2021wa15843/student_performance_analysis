@@ -26,14 +26,29 @@ import yaml
 # if authentication_status:
 #     st.success(f"Welcome {name}")
 
-st.set_page_config(layout="wide")
-st.title("Login")
-username = st.text_input("Username")
-password = st.text_input("Password", type="password")
+# st.set_page_config(layout="wide")
+# st.title("Login")
+# username = st.text_input("Username")
+# password = st.text_input("Password", type="password")
 
-if st.button("Login"):
-    if username == "admin" and password == "password123":
-        st.success("Login successful!")        
+# if st.button("Login"):
+#     if username == "admin" and password == "password123":
+#         st.success("Login successful!")   
+
+# Session state for login
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if not st.session_state.logged_in:
+    st.title("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if username == "admin" and password == "password123":
+            st.session_state.logged_in = True
+            st.success("Login successful!")
+
         st.set_page_config(layout="wide")
         # Load local CSV file
         df = pd.read_csv("Student_Performance_Standard6to12_Final.csv")
@@ -131,6 +146,6 @@ if st.button("Login"):
         if st.button("Notify Staff"):
             st.success(f"Notification logged for {staff_email}")
 
-elif authentication_status == False:
-    st.error("Username or password is incorrect")
+    elif authentication_status == False:
+        st.error("Username or password is incorrect")
 
