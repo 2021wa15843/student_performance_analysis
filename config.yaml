@@ -1,0 +1,20 @@
+credentials:
+  usernames:
+    admin:
+      name: Admin
+      password: admin
+    teacher:
+      name: Teacher
+      password: teacher
+    principal:
+      name: Principal
+      password: principal
+
+cookie:
+  expiry_days: 30
+  key: random_key
+  name: dashboard_cookie
+
+preauthorized:
+  emails:
+    - example@example.com
