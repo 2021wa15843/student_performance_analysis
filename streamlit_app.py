@@ -87,7 +87,7 @@ st.info(f"Notification will be sent to: {staff_email}")
 
 if st.button("Notify Staff"):
     try:
-        sender_email = "lavanya.ramamoorthy30@gamil.com""
+        sender_email = "lavanya.ramamoorthy30@gamil.com"
         sender_password = "whqs vakk tgei mczr"
 
         subject = "Student Performance Alert"
