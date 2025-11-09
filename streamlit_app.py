@@ -90,10 +90,13 @@ if st.button("Notify Staff"):
         sender_email = "lavanya.ramamoorthy30@gamil.com"
         sender_password = "whqs vakk tgei mczr"
 
+
         subject = "Student Performance Alert"
-        body = f"Total Students: {len(filtered_df)}"
-Avg Exam Score: {round(filtered_df['Exam_Score'].mean(), 2)}
-Avg Attendance: {round(filtered_df['Attendance_Rate'].mean(), 2)}"
+        body = (
+            f"Total Students: {len(filtered_df)}\n"
+            f"Avg Exam Score: {round(filtered_df['Exam_Score'].mean(), 2)}\n"
+            f"Avg Attendance: {round(filtered_df['Attendance_Rate'].mean(), 2)}"
+        )
 
         msg = MIMEText(body)
         msg['Subject'] = subject
