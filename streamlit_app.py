@@ -83,7 +83,7 @@ st.download_button(
 
 # Notify staff via Google Sheets + Email Display
 st.subheader("Notify Staff")
-staff_email = "lavanya.ramamoorthy@gamil.com"
+staff_email = "lavanya.ramamoorthy30@gamil.com"
 st.info(f"Notification will be sent to: {staff_email}")
 
 if st.button("Notify Staff"):
