@@ -72,7 +72,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader("Top 10 Students by Score Improvement")
 filtered_df['Score_Change'] = filtered_df['Exam_Score'] - filtered_df['Previous_Score']
 top_improved = filtered_df.sort_values('Score_Change', ascending=False).head(10)
-st.dataframe(top_improved[['Student_Unique_ID','School_Name','Previous_Score','Exam_Score','Score_Change']])
+st.dataframe(top_improved[['Student_Unique_ID','Previous_Score','Exam_Score','Score_Change']])
 
 # Full filtered student records
 st.subheader("Filtered Student Records")
