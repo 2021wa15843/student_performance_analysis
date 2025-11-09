@@ -80,10 +80,10 @@ st.download_button(
     mime="text/csv"
 )
 
-# Notify Staff via Gmail SMTP
-st.subheader("Notify Staff via Email")
-staff_email = "lavanya.ramamoorthy30@gamil.com"
-st.info(f"Notification will be sent to: {staff_email}")
+# # Notify Staff via Gmail SMTP
+# st.subheader("Notify Staff via Email")
+# staff_email = "lavanya.ramamoorthy30@gamil.com"
+# st.info(f"Notification will be sent to: {staff_email}")
 
 # if st.button("Notify Staff"):
 #     try:
