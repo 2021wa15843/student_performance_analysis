@@ -21,7 +21,7 @@ with st.sidebar:
     selected_class = st.selectbox("Select Class", classes)
     selected_region = st.selectbox("Select Region", regions)
     selected_section = st.selectbox("Select Section", sections)
-    selected_school = st.selectbox("Select School", schools)
+    # selected_school = st.selectbox("Select School", schools)
 
     chart_type = st.selectbox("Select Chart Type", [
         "Performance Label Distribution",
