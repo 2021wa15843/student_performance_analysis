@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -59,3 +58,16 @@ elif chart_type == "Growth vs Decline":
                  color=filtered_df['Score_Change'] > 0, color_discrete_map={True: 'green', False: 'red'})
 
 st.plotly_chart(fig)
+
+# Show filtered student data
+st.subheader("Filtered Student Records")
+st.dataframe(filtered_df)
+
+# Download button
+csv_data = filtered_df.to_csv(index=False)
+st.download_button(
+    label="Download Filtered Data",
+    data=csv_data,
+    file_name="filtered_students.csv",
+    mime="text/csv"
+)
