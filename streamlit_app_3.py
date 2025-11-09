@@ -92,7 +92,7 @@ Avg Exam Score: {round(filtered_df['Exam_Score'].mean(), 2)}
 Avg Attendance: {round(filtered_df['Attendance_Rate'].mean(), 2)}"
         msg = MIMEText(summary)
         msg['Subject'] = "Student Performance Summary"
-        msg['From'] = "your_email@example.com"
+        msg['From'] = "guidance_team@abc.com"
         msg['To'] = "staff_email@example.com"
 
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
