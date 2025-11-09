@@ -9,7 +9,7 @@ names = ['Admin', 'Teacher', 'Principal']
 usernames = ['admin', 'teacher', 'principal']
 passwords = ['password123', 'teacher123', 'principal123']
 
-hashed_passwords = stauth.Hasher(passwords).generate()
+hashed_passwords = stauth.Hasher().generate(passwords)
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords, 'dashboard_cookie', 'random_key', cookie_expiry_days=30)
 name, authentication_status, username = authenticator.login('Login', 'main')
 
