@@ -4,3 +4,4 @@ pandas
 plotly
 joblib
 scikit-learn
+streamlit-plotly-events
