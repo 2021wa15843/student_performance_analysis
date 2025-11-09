@@ -86,10 +86,10 @@ st.download_button(
     mime="text/csv"
 )
 
-# # Notify Staff (Display Email)
-# st.subheader("Notify Staff")
-# staff_email = "lavanya.ramamoorthy@gamil.com"
-# st.info(f"Notification will be sent to: {staff_email}")
+# Notify Staff (Display Email)
+st.subheader("Notify Staff")
+staff_email = "lavanya.ramamoorthy@gamil.com"
+st.info(f"Notification will be sent to: {staff_email}")
 
-# if st.button("Notify Staff"):
-#     st.success(f"Notification logged for {staff_email}")
+if st.button("Notify Staff"):
+    st.success(f"Notification logged for {staff_email}")
