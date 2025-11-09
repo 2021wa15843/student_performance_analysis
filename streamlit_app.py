@@ -16,7 +16,7 @@ with st.sidebar:
     classes = ['All'] + sorted(df['Class'].unique())
     regions = ['All'] + sorted(df['Region'].unique())
     sections = ['All'] + sorted(df['Section'].unique())
-    schools = ['All'] + sorted(df['School_Name'].unique())
+    # schools = ['All'] + sorted(df['School_Name'].unique())
 
     selected_class = st.selectbox("Select Class", classes)
     selected_region = st.selectbox("Select Region", regions)
