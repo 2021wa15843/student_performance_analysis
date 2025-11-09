@@ -97,7 +97,7 @@ if st.button("Notify Staff"):
         sheet.append_row(["Total Students", len(filtered_df)])
         sheet.append_row(["Avg Exam Score", round(filtered_df['Exam_Score'].mean(), 2)])
         sheet.append_row(["Avg Attendance", round(filtered_df['Attendance_Rate'].mean(), 2)])
-        sheet.append_row(["Class", selected_class, "Region", selected_region, "Section", selected_section, "School", selected_school])
+        sheet.append_row(["Class", selected_class, "Region", selected_region, "Section", selected_section])
 
         st.success(f"Notification logged for {staff_email}")
     except Exception as e:
