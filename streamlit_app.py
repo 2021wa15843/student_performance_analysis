@@ -1,9 +1,7 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
 import plotly.express as px
-from streamlit_plotly_events import plotly_events
 
 # Load data and model
 df = pd.read_csv("Student_Performance_Standard6to12_Final.csv")
@@ -42,17 +40,11 @@ st.write(f"**Average Previous Score:** {round(filtered_df['Previous_Score'].mean
 st.write(f"**Average Exam Score:** {round(filtered_df['Exam_Score'].mean(), 2)}")
 st.write(f"**Average Attendance Rate:** {round(filtered_df['Attendance_Rate'].mean(), 2)}")
 
-# Chart and interactive filtering
-selected_label = None
+# Chart
 if chart_type == "Performance Label Distribution":
     label_counts = filtered_df['Performance_Label'].value_counts().reset_index()
     label_counts.columns = ['Performance_Label', 'Count']
     fig = px.pie(label_counts, names='Performance_Label', values='Count')
-    st.subheader("Click on a label to filter student records")
-    selected_points = plotly_events(fig, click_event=True, select_event=False)
-    if selected_points:
-        # selected_label = selected_points[0]['label']
-        selected_label = selected_points[0].get('x') or selected_points[0].get('customdata')
 elif chart_type == "Score Trend by Student":
     fig = px.line(filtered_df, x='Student_Unique_ID', y=['Previous_Score', 'Exam_Score'])
 elif chart_type == "Average Score by Class":
@@ -67,10 +59,11 @@ elif chart_type == "Growth vs Decline":
 
 st.plotly_chart(fig)
 
-# Filter by selected label if available
-if selected_label:
-    st.subheader(f"Filtered Students with Performance Label: {selected_label}")
-    filtered_df = filtered_df[filtered_df['Performance_Label'] == selected_label]
+# ✅ Top 10 Students by Score Improvement
+st.subheader("Top 10 Students by Score Improvement")
+filtered_df['Score_Change'] = filtered_df['Exam_Score'] - filtered_df['Previous_Score']
+top_improved = filtered_df.sort_values('Score_Change', ascending=False).head(10)
+st.dataframe(top_improved[['Student_Unique_ID','Previous_Score','Exam_Score','Score_Change']])
 
 # Show filtered student data
 st.subheader("Filtered Student Records")
