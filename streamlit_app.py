@@ -15,12 +15,12 @@ with st.sidebar:
     classes = ['All'] + sorted(df['Class'].unique())
     regions = ['All'] + sorted(df['Region'].unique())
     sections = ['All'] + sorted(df['Section'].unique())
-    schools = ['All'] + sorted(df['School_Name'].unique())
+    # schools = ['All'] + sorted(df['School_Name'].unique())
 
     selected_class = st.selectbox("Select Class", classes)
     selected_region = st.selectbox("Select Region", regions)
     selected_section = st.selectbox("Select Section", sections)
-    selected_school = st.selectbox("Select School", schools)
+    # selected_school = st.selectbox("Select School", schools)
 
     chart_type = st.selectbox("Select Chart Type", [
         "Performance Label Distribution",
@@ -38,8 +38,8 @@ if selected_region != 'All':
     filtered_df = filtered_df[filtered_df['Region'] == selected_region]
 if selected_section != 'All':
     filtered_df = filtered_df[filtered_df['Section'] == selected_section]
-if selected_school != 'All':
-    filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
+# if selected_school != 'All':
+    # filtered_df = filtered_df[filtered_df['School_Name'] == selected_school]
 
 # KPIs
 st.subheader("Key Performance Indicators")
@@ -71,7 +71,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader("Top 10 Students by Score Improvement")
 filtered_df['Score_Change'] = filtered_df['Exam_Score'] - filtered_df['Previous_Score']
 top_improved = filtered_df.sort_values('Score_Change', ascending=False).head(10)
-st.dataframe(top_improved[['Student_Unique_ID','School_Name','Previous_Score','Exam_Score','Score_Change']])
+st.dataframe(top_improved[['Student_Unique_ID','Previous_Score','Exam_Score','Score_Change']])
 
 # Full filtered student records
 st.subheader("Filtered Student Records")
