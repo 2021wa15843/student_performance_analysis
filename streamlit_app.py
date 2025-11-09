@@ -2,15 +2,28 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit_authenticator as stauth
+import yaml
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
+# names = ['Admin', 'Teacher', 'Principal']
+# usernames = ['admin', 'teacher', 'principal']
+# passwords = ['password123', 'teacher123', 'principal123']
+# hashed_passwords = stauth.Hasher().generate(passwords)
+# authenticator = stauth.Authenticate(names, usernames, hashed_passwords, 'dashboard_cookie', 'random_key', cookie_expiry_days=30)
+# name, authentication_status, username = authenticator.login('Login', 'main')
 
-names = ['Admin', 'Teacher', 'Principal']
-usernames = ['admin', 'teacher', 'principal']
-passwords = ['password123', 'teacher123', 'principal123']
 
-hashed_passwords = stauth.Hasher().generate(passwords)
-authenticator = stauth.Authenticate(names, usernames, hashed_passwords, 'dashboard_cookie', 'random_key', cookie_expiry_days=30)
+# Load config
+with open('config.yaml') as file:
+    config = yaml.safe_load(file)
+
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
+
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if authentication_status:
