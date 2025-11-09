@@ -8,3 +8,4 @@ streamlit-plotly-events
 gspread
 oauth2client
 streamlit-authenticator
+PyYAML
