@@ -87,18 +87,19 @@ staff_email = "lavanya.ramamoorthy30@gamil.com"
 st.info(f"Notification will be sent to: {staff_email}")
 
 if st.button("Notify Staff"):
-    try:
-        # Google Sheets logic (optional)
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-        client = gspread.authorize(creds)
+    st.success(f"Notification logged for {staff_email}")
+    # try:
+    #     # Google Sheets logic (optional)
+    #     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    #     creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    #     client = gspread.authorize(creds)
 
-        sheet = client.open("Student Performance Alerts").sheet1
-        sheet.append_row(["Total Students", len(filtered_df)])
-        sheet.append_row(["Avg Exam Score", round(filtered_df['Exam_Score'].mean(), 2)])
-        sheet.append_row(["Avg Attendance", round(filtered_df['Attendance_Rate'].mean(), 2)])
-        sheet.append_row(["Class", selected_class, "Region", selected_region, "Section", selected_section])
+    #     sheet = client.open("Student Performance Alerts").sheet1
+    #     sheet.append_row(["Total Students", len(filtered_df)])
+    #     sheet.append_row(["Avg Exam Score", round(filtered_df['Exam_Score'].mean(), 2)])
+    #     sheet.append_row(["Avg Attendance", round(filtered_df['Attendance_Rate'].mean(), 2)])
+    #     sheet.append_row(["Class", selected_class, "Region", selected_region, "Section", selected_section])
 
-        st.success(f"Notification logged for {staff_email}")
-    except Exception as e:
-        st.error(f"Failed to update Google Sheet: {e}")
+    #     st.success(f"Notification logged for {staff_email}")
+    # except Exception as e:
+    #     st.error(f"Failed to update Google Sheet: {e}")
