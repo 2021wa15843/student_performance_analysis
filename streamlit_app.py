@@ -1,5 +1,4 @@
 import streamlit_authenticator as stauth
-import yaml
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -31,12 +30,18 @@ if st.session_state.logged_in:
     # Load CSV
     df = pd.read_csv("Student_Performance_Standard6to12_Final.csv")
 
+    # ✅ Add Year column manually
+    df['Year'] = 2024  # or 2024-2025 academic year
+
     # Sidebar filters
     with st.sidebar:
         st.header("Filters")
+        years = ['All'] + sorted(df['Year'].unique())
         classes = ['All'] + sorted(df['Class'].unique())
         regions = ['All'] + sorted(df['Region'].unique())
         sections = ['All'] + sorted(df['Section'].unique())
+
+        selected_year = st.selectbox("Select Year", years)
         selected_class = st.selectbox("Select Class", classes)
         selected_region = st.selectbox("Select Region", regions)
         selected_section = st.selectbox("Select Section", sections)
@@ -50,6 +55,8 @@ if st.session_state.logged_in:
 
     # Apply filters
     filtered_df = df.copy()
+    if selected_year != 'All':
+        filtered_df = filtered_df[filtered_df['Year'] == selected_year]
     if selected_class != 'All':
         filtered_df = filtered_df[filtered_df['Class'] == selected_class]
     if selected_region != 'All':
